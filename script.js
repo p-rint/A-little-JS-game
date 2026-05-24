@@ -50,11 +50,12 @@ function drawCenter() {
     ctx.arc(center + 15, center + 15, 5, 0, Math.PI * 2);
     ctx.fill();
 
+    ctx.beginPath();
     ctx.fillStyle = '#FFD700';
-    ctx.arc(center - 15, center  + 20, 5, 0, Math.PI * 2);
+    ctx.arc(center - 15, center + 20, 5, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(center + 15, center + 2, 5, 0, Math.PI * 2);
+    ctx.arc(center + 15, center + 20, 5, 0, Math.PI * 2);
     ctx.fill();
 }
 
@@ -115,6 +116,11 @@ function updateItems() {
         var dist = Math.sqrt(    Math.pow( item.x - center, 2) + Math.pow( item.y - center, 2)   );
         if (dist < centerSize) {
             items.splice(index, 1);
+            health -= 1;
+
+            if (health <= 0){
+                location.reload();
+            }
         }
     });
 }
@@ -169,7 +175,7 @@ document.addEventListener('keyup', (e) => {
 });
 
 // create items periodically
-setInterval(createItem, 300);
+setInterval(createItem, (Math.random() * 400) + 800);
 
 // start the game!
 gameLoop();
